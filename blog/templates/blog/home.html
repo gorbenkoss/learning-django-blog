@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load blog_extras %}
+{% load static %}
+<script src="{% static 'blog/js/handle-reaction.js' %}"></script>
+<script src="{% static 'blog/js/infinite-scroll.js' %}"></script>
+
+
+    
+    {% if user.is_authenticated %}
+    <a href="{% url 'post-new' %}"><button>Create New Post</button></a>
+    {% endif %}
+    <h1>Blog Home</h1>
+    <div id="posts-container"> </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% load blog_extras %}
+{% load static %}
+<script src="{% static 'blog/js/infinite-scroll.js' %}"></script>
+<script src="{% static 'blog/js/handle-reaction.js' %}"></script>
+<h1>{{ profile_user.username }}'s Account</h1>
+<p><small>{{ profile_user.username }} - has {{ post_count }} posts</small></p>
+
+{% if user.is_authenticated and profile_user.username == request.user.username %}
+    <p><a href="{% url 'post-new'%}">Write more</a></p>
+{% endif %}
+
+<div>
+    {% if posts %}
+        <div id="posts-container" data-username="{{ profile_user.username }}"></div>
+    {% else %}
+        <p>{{ profile_user.username }} hasn't written any posts yet.</p>
+        <p><a href="{% url 'post-new'%}">Write your first post</a></p>
+    {% endif %}
+</div>
+{% endblock %}
