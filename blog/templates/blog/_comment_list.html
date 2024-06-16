@@ -1,0 +1,8 @@
+{% load blog_extras %}
+{% for comment in comments %}
+<div class='comment list-group-item'>
+    <p>{{ comment.content }}</p>
+    <p><small>Commented by: <a href="{% url 'account' username=comment.author %}">{{ comment.author }}</a></small></p>
+    <p><small>Commented on: {{ comment.date_posted|format_post_date }}</small></p>
+</div>
+{% endfor %}

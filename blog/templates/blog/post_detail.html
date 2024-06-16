@@ -1,10 +1,25 @@
 {% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Home{% endblock %}
 {% block content %}
 {% load static %}
 <script src="{% static 'blog/js/handle-reaction.js' %}"></script>
-<div id="posts-container">
+<script src="{% static 'blog/js/infinite-scroll-comments.js' %}"></script>
+<div id="posts-container" class="list-group">
     {% include "blog/_post_list.html" %}
 </div>
+
+<div id="comment-form" class="my-4">
+    <form method="POST" action="{% url 'add-comment' pk=post.pk %}">
+        {% csrf_token %}
+        {{ comment_form|crispy }}
+        <button type="submit" class="btn btn-primary">Comment</button>
+    </form>
+</div>
+
+<div id="comments-container" class="list-group" data-post-id="{{ post.id }}" data-total-comments="{{ total_comments }}">
+    {% include "blog/_comment_list.html" %}
+</div>
+
 {% endblock %}

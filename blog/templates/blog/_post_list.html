@@ -1,17 +1,16 @@
 {% load blog_extras %}
 {% for post in posts %}
-<div class='post'>
+<div class='post list-group-item'>
     <h2><a href="{% url 'post-detail' pk=post.pk %}">{{ post.title }}</a></h2>
     <p>{{ post.content }}</p>
     <p><small>Posted: {{ post.date_posted|format_post_date }}</small></p>
     <p><small>Posted by: <a href="{% url 'account' username=post.author%}">{{ post.author }}</a></small></p>
-    <button onclick="sendReaction({{ post.id }}, true)">Like</button>
-    <button onclick="sendReaction({{ post.id }}, false)">Dislike</button>
-    <!-- Display current rating, which will be updated dynamically -->
+    <button class="btn btn-success" onclick="sendReaction({{ post.id }}, true)">Like</button>
+    <button class="btn btn-danger" onclick="sendReaction({{ post.id }}, false)">Dislike</button>
     <p id="rating-{{ post.id }}">Rating: {{ post.rating }}</p>   
-     <!-- Check if the user is authenticated and is the author of the post -->
+    <p><a href="{% url 'post-detail' pk=post.pk %}">{{ post.comments.count }} comments</a></p>  <!-- Link to comments -->
     {% if user.is_authenticated and post.author == user %}
-    <a href="{% url 'post-edit' pk=post.pk %}"><button>Edit</button></a>
+    <a href="{% url 'post-edit' pk=post.pk %}" class="btn btn-warning">Edit</a>
     {% endif %}       
 </div>
 {% endfor %} 
