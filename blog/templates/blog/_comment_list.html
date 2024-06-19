@@ -4,5 +4,8 @@
     <p>{{ comment.content }}</p>
     <p><small>Commented by: <a href="{% url 'account' username=comment.author %}">{{ comment.author }}</a></small></p>
     <p><small>Commented on: {{ comment.date_posted|format_post_date }}</small></p>
+    <button class="btn btn-success" onclick="sendCommentReaction({{ comment.id }}, true)">Like</button>
+    <button class="btn btn-danger" onclick="sendCommentReaction({{ comment.id }}, false)">Dislike</button>
+    <p id="rating-comment-{{ comment.id }}">Rating: {{ comment.rating }}</p>
 </div>
 {% endfor %}

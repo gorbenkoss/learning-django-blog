@@ -16,6 +16,5 @@ urlpatterns = [
     path('account/<str:username>/', account, name='account'),
     path('ajax/load_more_posts/', load_more_posts, name='load-more-posts'),
     path('post/<int:pk>/load-more-comments/', load_more_comments, name='load-more-comments'),
-    path('like/<int:post_id>/', views.like_post, name='like-post'),
-    path('dislike/<int:post_id>/', views.dislike_post, name='dislike-post'),
+    path('react/<str:content_type>/<int:content_id>/', views.react_to_content, name='react-to-content'),
 ]

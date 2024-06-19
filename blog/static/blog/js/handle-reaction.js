@@ -2,26 +2,29 @@ function getCSRFToken() {
     return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 }
 
-function sendReaction(postId, isLike) {
+function sendReaction(contentId, contentType, isLike) {
     var csrftoken = $('meta[name="csrf-token"]').attr('content');
     
     $.ajax({
-        url: `/blog/${isLike ? 'like' : 'dislike'}/${postId}/`,
+        url: `/blog/react/${contentType}/${contentId}/`,
         type: 'POST',
         headers: {'X-CSRFToken': csrftoken},
+        data: {
+            liked:  isLike
+        },
         success: function(response) {
             console.log('Success:', response);
-            updateRatingDisplay(postId, response.rating);
+            updateRatingDisplay(contentType, contentId, response.rating);
         },
         error: function(xhr, status, error) {
-                console.error('Failed:', status, error);
-            }
+            console.error('Failed:', status, error);
+        }
     });
 }
 
-function updateRatingDisplay(postId, newRating) {
-    const ratingElement = document.getElementById(`rating-${postId}`);
+function updateRatingDisplay(contentType, contentId, newRating) {
+    const ratingElement = document.getElementById(`rating-${contentType}-${contentId}`);
     if (ratingElement) {
-        ratingElement.textContent = `Rating: ${newRating}`;
+        ratingElement.textContent = `${newRating}`;
     }
 }
