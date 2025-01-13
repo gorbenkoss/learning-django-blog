@@ -13,4 +13,3 @@ db.sqlite3
 
 # Ignore system files
 .DS_Store
-Thumbs.db
